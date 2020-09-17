@@ -25,6 +25,8 @@ actions:
       - .gitattributes
       - .gitignore
       - build/.gitignore
+      - build/go.mod
+      - build/go.sum
       - build/setup.mk
       #- build/sync/main.go
       #- build/sync/README.md
