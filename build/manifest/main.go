@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/mattermost/mattermost-server/v5/model"
 	"github.com/pkg/errors"
@@ -143,9 +144,12 @@ func applyManifest(manifest *model.Manifest) error {
 		}
 		manifestStr := string(manifestBytes)
 
+		// Escape newlines
+		manifestStr = strings.ReplaceAll(manifestStr, `\n`, `\\n`)
+
 		// write generated code to file by using JS file template.
 		if err := ioutil.WriteFile(
-			"webapp/src/manifest.js",
+			"webapp/src/manifest.ts",
 			[]byte(fmt.Sprintf(pluginIDJSFileTemplate, manifestStr)),
 			0600,
 		); err != nil {
